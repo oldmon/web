@@ -1,489 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">W">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>台灣藝文活動分析 (文化部開放資料)</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>'>ript src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-</head>>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>'>
+</head>
 <body>
     <div class="container">
         <h1>台灣藝文活動分析 (文化部開放資料)</h1>
-        <p class="source-info">資料來源: 文化部整合本部及所屬各級機關(構)專題演講及藝文座談會等活動</p><p class="source-info">資料來源: 文化部整合本部及所屬各級機關(構)專題演講及藝文座談會等活動</p>
+        <p class="source-info">資料來源: 文化部整合本部及所屬各級機關(構)專題演講及藝文座談會等活動</p>
         
         <div class="controls">
             <div class="control-group">
-                <label for="chartType">圖表類型:</label>圖表類型:</label>
+                <label for="chartType">圖表類型:</label>
                 <select id="chartType">
-                    <option value="stream">Stream Graph</option>n>
-                    <option value="radar">Radar Chart</option>
-                    <option value="stack">Stack Chart</option>on value="stack">Stack Chart</option>
-                </select>select>
+                    <option value="stream">串流圖</option>
+                    <option value="radar">雷達圖</option>
+                    <option value="stack">堆疊圖</option>
+                </select>
             </div>
             <div class="control-group">
-                <label for="timeRange">時間範圍:</label>時間範圍:</label>
+                <label for="timeRange">時間範圍:</label>
                 <select id="timeRange">
                     <option value="7">最近一週</option>
                     <option value="30">最近一個月</option>
-                    <option value="90">最近三個月</option>on value="90">最近三個月</option>
-                </select>select>
+                    <option value="90">最近三個月</option>
+                </select>
             </div>
             <div class="control-group">
-                <label for="categoryFilter">活動類型:</label>活動類型:</label>
+                <label for="categoryFilter">活動類型:</label>
                 <select id="categoryFilter">
                     <option value="all">全部類型</option>
-                    <option value="lecture">專題演講</option>n>
-                    <option value="forum">藝文座談</option>>
-                    <option value="show">表演活動</option>on value="show">表演活動</option>
-                </select>select>
-            </div>div>
-        </div></div>
+                    <option value="lecture">專題演講</option>
+                    <option value="forum">藝文座談</option>
+                    <option value="show">表演活動</option>
+                </select>
+            </div>
+        </div>
         
-        <div class="chart-container">r">
-            <div id="chart"></div>iv id="chart"></div>
-        </div></div>
+        <div class="chart-container">
+            <div id="chart"></div>
+        </div>
         
-        <div class="legend" id="legend"></div><div class="legend" id="legend"></div>
+        <div class="legend" id="legend"></div>
         
         <div class="city-details" id="cityDetails">
-            <h3 id="cityDetailsTitle">City Breakdown</h3>y Breakdown</h3>
-            <div id="cityPieChart"></div>iv id="cityPieChart"></div>
-        </div></div>
+            <h3 id="cityDetailsTitle">城市分布</h3>
+            <div id="cityPieChart"></div>
+        </div>
         
         <div class="analysis">
-            <h2>Design Explanation and Analysis</h2>
-            <h3>Design Choices & Task Analysis</h3>
-            <p>This visualization was designed to explore trends in tech meetup attendance across different topics and cities in Taiwan. The primary tasks this design addresses are: (1) comparing attendance/satisfaction across topics over time, (2) identifying emerging technology trends, (3) understanding the pandemic's impact on tech communities, and (4) exploring geographic distribution of interest in specific technologies.</p><p>此視覺化設計旨在探索台灣藝文活動的發展趨勢。主要任務包含：(1) 比較不同類型活動隨時間的變化，(2) 辨識新興藝文趨勢，(3) 了解各地區藝文活動分布，(4) 探索不同類型活動的地理分布特性。</p>
+            <h2>設計說明與分析</h2>
+            <h3>設計選擇與任務分析</h3>
+            <p>此視覺化設計旨在探索台灣藝文活動的發展趨勢。主要任務包含：(1) 比較不同類型活動隨時間的變化，(2) 辨識新興藝文趨勢，(3) 了解各地區藝文活動分布，(4) 探索不同類型活動的地理分布特性。</p>
             
-            <h3>Mark and Channel Choices</h3>
-            <p>Multiple visualization types are provided to support different analytical tasks. The bubble chart uses position (x,y) to encode year and metric value, with size encoding attendance volume and color distinguishing topics. The stream graph shows temporal trends with area encoding attendance. The radar chart uses angular position and area to compare multiple metrics across topics simultaneously. These encodings were chosen to support both trend analysis and topical comparison while maintaining perceptual effectiveness.</p>>為支援不同分析任務，提供多種視覺化方式：串流圖使用面積編碼展現時間趨勢，雷達圖使用角度位置和面積比較各類型活動，堆疊圖則呈現累積效果。這些編碼方式的選擇兼顧了趨勢分析和類別比較的需求，同時確保視覺效果的易讀性。</p>
-        </div>div>
-    </div>    </div>
+            <h3>圖形標記與視覺通道選擇</h3>
+            <p>為支援不同分析任務，提供多種視覺化方式：串流圖使用面積編碼展現時間趨勢，雷達圖使用角度位置和面積比較各類型活動，堆疊圖則呈現累積效果。這些編碼方式的選擇兼顧了趨勢分析和類別比較的需求，同時確保視覺效果的易讀性。</p>
+        </div>
+    </div>
 
     <script>
         // 從文化部API獲取資料
-        async function fetchCulturalEvents() {fetchCulturalEvents() {
+        async function fetchCulturalEvents() {
             // 正確的API端點
-            const apiUrl = 'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=7'; apiUrl = 'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=7';
+            const apiUrl = 'https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=7';
             try {
-                const response = await fetch(apiUrl););
-                const data = await response.json();const data = await response.json();
+                const response = await fetch(apiUrl);
+                const data = await response.json();
                 
                 // 檢查回傳的資料結構
                 if (!Array.isArray(data)) {
-                    console.error('回傳資料格式錯誤:', data);ror('回傳資料格式錯誤:', data);
-                    return [];   return [];
+                    console.error('回傳資料格式錯誤:', data);
+                    return [];
                 }
-                return processApiData(data);sApiData(data);
+                return processApiData(data);
             } catch (error) {
-                console.error('資料擷取錯誤:', error);ror('資料擷取錯誤:', error);
-                return [];   return [];
-            }   }
-        }        }
+                console.error('資料擷取錯誤:', error);
+                return [];
+            }
+        }
 
         // 處理API資料
-        function processApiData(rawData) {{
-            return rawData.map(event => {=> {
+        function processApiData(rawData) {
+            return rawData.map(event => {
                 // 解析日期字串，如果無效則使用當前日期
                 const parseDate = (dateStr) => {
-                    const date = dateStr ? new Date(dateStr) : new Date();te();
-                    return isNaN(date.getTime()) ? new Date() : date;  return isNaN(date.getTime()) ? new Date() : date;
-                };                };
+                    const date = dateStr ? new Date(dateStr) : new Date();
+                    return isNaN(date.getTime()) ? new Date() : date;
+                };
 
                 return {
                     title: event.title || '未命名活動',
-                    startDate: parseDate(event.startDate),te),
+                    startDate: parseDate(event.startDate),
                     endDate: parseDate(event.endDate),
                     category: getCategoryType(event.category) || '其他',
-                    location: event.showInfo?.[0]?.location || '未指定地點',定地點',
-                    description: event.descriptionFilterHtml || ''  description: event.descriptionFilterHtml || ''
-                }; };
-            });   });
-        }        }
+                    location: event.showInfo?.[0]?.location || '未指定地點',
+                    description: event.descriptionFilterHtml || ''
+                };
+            });
+        }
 
         // 分類活動類型
-        function getCategoryType(category) {category) {
-            const categoryMap = {Map = {
+        function getCategoryType(category) {
+            const categoryMap = {
                 '1': '講座',
                 '2': '展覽',
                 '3': '表演',
-                '7': '講座',,
-                '8': '展覽'  '8': '展覽'
+                '7': '講座',
+                '8': '展覽'
             };
-            return categoryMap[category] || '其他';   return categoryMap[category] || '其他';
-        }        }
+            return categoryMap[category] || '其他';
+        }
 
         // 改進資料聚合函數
-        function aggregateData(data) {gateData(data) {
+        function aggregateData(data) {
             // 確保資料是陣列
-            if (!Array.isArray(data)) return [];            if (!Array.isArray(data)) return [];
+            if (!Array.isArray(data)) return [];
 
             // 依照類別和日期進行資料聚合
-            const aggregated = d3.rollup(data,gated = d3.rollup(data,
+            const aggregated = d3.rollup(data,
                 v => ({
                     count: v.length,
-                    types: d3.group(v, d => d.category) types: d3.group(v, d => d.category)
+                    types: d3.group(v, d => d.category)
                 }),
-                d => d3.timeDay(d.startDate)  d => d3.timeDay(d.startDate)
-            );            );
+                d => d3.timeDay(d.startDate)
+            );
 
-            return Array.from(aggregated, ([date, value]) => ({ray.from(aggregated, ([date, value]) => ({
+            return Array.from(aggregated, ([date, value]) => ({
                 date,
                 total: value.count,
                 講座: value.types.get('講座')?.length || 0,
                 展覽: value.types.get('展覽')?.length || 0,
-                表演: value.types.get('表演')?.length || 0,,
-                其他: value.types.get('其他')?.length || 0其他: value.types.get('其他')?.length || 0
-            }));   }));
-        }        }
+                表演: value.types.get('表演')?.length || 0,
+                其他: value.types.get('其他')?.length || 0
+            }));
+        }
 
         // 初始化圖表
-        async function initializeVisualization() {ction initializeVisualization() {
+        async function initializeVisualization() {
             try {
                 const rawData = await fetchCulturalEvents();
                 const processedData = aggregateData(rawData);
                 const chartType = document.getElementById('chartType').value;
-                const timeRange = parseInt(document.getElementById('timeRange').value);const timeRange = parseInt(document.getElementById('timeRange').value);
+                const timeRange = parseInt(document.getElementById('timeRange').value);
                 
                 // 根據時間範圍過濾資料
-                const filtered = processedData.filter(d => {ter(d => {
+                const filtered = processedData.filter(d => {
                     const cutoffDate = new Date();
-                    cutoffDate.setDate(cutoffDate.getDate() - timeRange);e.getDate() - timeRange);
-                    return d.date >= cutoffDate; return d.date >= cutoffDate;
-                });                });
+                    cutoffDate.setDate(cutoffDate.getDate() - timeRange);
+                    return d.date >= cutoffDate;
+                });
 
-                updateVisualization(filtered, chartType);zation(filtered, chartType);
+                updateVisualization(filtered, chartType);
             } catch (error) {
-                console.error('Error initializing visualization:', error);   console.error('Error initializing visualization:', error);
-            }   }
-        }        }
+                console.error('Error initializing visualization:', error);
+            }
+        }
 
         // 更新視覺化
-        function updateVisualization(data, chartType, timeRange) {tion(data, chartType, timeRange) {
-            // 根據選擇的圖表類型渲染不同的視覺化化
-            switch(chartType) {{
+        function updateVisualization(data, chartType, timeRange) {
+            // 根據選擇的圖表類型渲染不同的視覺化
+            switch(chartType) {
                 case 'stream':
-                    renderStreamGraph(data);StreamGraph(data);
+                    renderStreamGraph(data);
                     break;
                 case 'radar':
-                    renderRadarChart(data);RadarChart(data);
+                    renderRadarChart(data);
                     break;
                 case 'stack':
-                    renderStackChart(data);StackChart(data);
-                    break;       break;
-            }   }
-        }        }
+                    renderStackChart(data);
+                    break;
+            }
+        }
 
         // 監聽控制項變化
         document.getElementById('chartType').addEventListener('change', initializeVisualization);
         document.getElementById('timeRange').addEventListener('change', initializeVisualization);
-        document.getElementById('categoryFilter').addEventListener('change', initializeVisualization);        document.getElementById('categoryFilter').addEventListener('change', initializeVisualization);
+        document.getElementById('categoryFilter').addEventListener('change', initializeVisualization);
 
         // 初始載入
-        initializeVisualization();initializeVisualization();
+        initializeVisualization();
         
         // Dataset
-        const data = [{"year":2019,"topic":"Web Development","attendees":646,"satisfaction":"4.22","newMembers":182,"cityBreakdown":{"Taipei":122,"New Taipei":157,"Kaohsiung":198,"Tainan":169}},{"year":2019,"topic":"Data Science","attendees":793,"satisfaction":"3.82","newMembers":147,"cityBreakdown":{"Taipei":74,"New Taipei":146,"Taichung":145,"Kaohsiung":71,"Tainan":158,"Hsinchu":199}},{"year":2019,"topic":"AI/ML","attendees":549,"satisfaction":"3.86","newMembers":112,"cityBreakdown":{"Taipei":77,"New Taipei":131,"Taichung":165,"Kaohsiung":71,"Hsinchu":105}},{"year":2019,"topic":"DevOps","attendees":169,"satisfaction":"4.10","newMembers":57,"cityBreakdown":{"Taichung":76,"Hsinchu":93}},{"year":2019,"topic":"Mobile Development","attendees":764,"satisfaction":"4.20","newMembers":182,"cityBreakdown":{"Taipei":104,"New Taipei":78,"Taichung":75,"Kaohsiung":128,"Tainan":194,"Hsinchu":185}},{"year":2019,"topic":"Blockchain","attendees":420,"satisfaction":"4.15","newMembers":82,"cityBreakdown":{"Taipei":93,"Taichung":78,"Kaohsiung":148,"Hsinchu":101}},{"year":2020,"topic":"Web Development","attendees":92,"satisfaction":"4.10","newMembers":52,"cityBreakdown":{"Taipei":16,"New Taipei":23,"Tainan":36,"Hsinchu":17}},{"year":2020,"topic":"Data Science","attendees":220,"satisfaction":"3.44","newMembers":156,"cityBreakdown":{"Taipei":38,"New Taipei":51,"Taichung":42,"Kaohsiung":47,"Tainan":42}},{"year":2020,"topic":"AI/ML","attendees":182,"satisfaction":"4.03","newMembers":155,"cityBreakdown":{"Taipei":18,"New Taipei":19,"Taichung":31,"Kaohsiung":43,"Tainan":16,"Hsinchu":55}},{"year":2020,"topic":"DevOps","attendees":241,"satisfaction":"4.33","newMembers":203,"cityBreakdown":{"Taipei":55,"New Taipei":26,"Taichung":47,"Kaohsiung":30,"Tainan":29,"Hsinchu":54}},{"year":2020,"topic":"Mobile Development","attendees":146,"satisfaction":"3.68","newMembers":102,"cityBreakdown":{"Taipei":26,"New Taipei":18,"Taichung":44,"Tainan":22,"Hsinchu":36}},{"year":2020,"topic":"Blockchain","attendees":180,"satisfaction":"4.40","newMembers":150,"cityBreakdown":{"Taipei":18,"New Taipei":26,"Taichung":35,"Kaohsiung":58,"Tainan":43}},{"year":2021,"topic":"Web Development","attendees":304,"satisfaction":"4.28","newMembers":168,"cityBreakdown":{"Taipei":65,"New Taipei":45,"Kaohsiung":104,"Hsinchu":90}},{"year":2021,"topic":"Data Science","attendees":201,"satisfaction":"4.03","newMembers":117,"cityBreakdown":{"Taipei":38,"Kaohsiung":54,"Hsinchu":109}},{"year":2021,"topic":"AI/ML","attendees":372,"satisfaction":"4.02","newMembers":132,"cityBreakdown":{"New Taipei":54,"Taichung":34,"Kaohsiung":99,"Tainan":101,"Hsinchu":84}},{"year":2021,"topic":"DevOps","attendees":437,"satisfaction":"4.05","newMembers":241,"cityBreakdown":{"Taipei":69,"New Taipei":90,"Taichung":52,"Kaohsiung":70,"Tainan":45,"Hsinchu":111}},{"year":2021,"topic":"Mobile Development","attendees":394,"satisfaction":"3.78","newMembers":119,"cityBreakdown":{"Taipei":105,"New Taipei":54,"Kaohsiung":81,"Tainan":94,"Hsinchu":60}},{"year":2021,"topic":"Blockchain","attendees":355,"satisfaction":"3.84","newMembers":163,"cityBreakdown":{"New Taipei":60,"Taichung":92,"Kaohsiung":82,"Tainan":69,"Hsinchu":52}},{"year":2022,"topic":"Web Development","attendees":342,"satisfaction":"4.07","newMembers":128,"cityBreakdown":{"Taipei":151,"Taichung":121,"Kaohsiung":70}},{"year":2022,"topic":"Data Science","attendees":696,"satisfaction":"3.80","newMembers":144,"cityBreakdown":{"Taipei":196,"New Taipei":162,"Kaohsiung":139,"Tainan":134,"Hsinchu":65}},{"year":2022,"topic":"AI/ML","attendees":927,"satisfaction":"4.17","newMembers":104,"cityBreakdown":{"Taipei":186,"New Taipei":205,"Taichung":187,"Kaohsiung":153,"Tainan":114,"Hsinchu":82}},{"year":2022,"topic":"DevOps","attendees":844,"satisfaction":"4.28","newMembers":327,"cityBreakdown":{"Taipei":87,"New Taipei":113,"Taichung":188,"Kaohsiung":120,"Tainan":188,"Hsinchu":148}},{"year":2022,"topic":"Mobile Development","attendees":755,"satisfaction":"4.18","newMembers":169,"cityBreakdown":{"Taipei":50,"Taichung":168,"Kaohsiung":164,"Tainan":190,"Hsinchu":183}},{"year":2022,"topic":"Blockchain","attendees":734,"satisfaction":"4.15","newMembers":228,"cityBreakdown":{"New Taipei":236,"Taichung":83,"Kaohsiung":183,"Tainan":232}},{"year":2023,"topic":"Web Development","attendees":918,"satisfaction":"4.15","newMembers":255,"cityBreakdown":{"Taipei":196,"New Taipei":159,"Taichung":181,"Kaohsiung":105,"Tainan":189,"Hsinchu":88}},{"year":2023,"topic":"Data Science","attendees":999,"satisfaction":"4.28","newMembers":252,"cityBreakdown":{"Taipei":202,"New Taipei":235,"Taichung":104,"Kaohsiung":186,"Tainan":132,"Hsinchu":140}},{"year":2023,"topic":"AI/ML","attendees":1287,"satisfaction":"4.27","newMembers":179,"cityBreakdown":{"Taipei":88,"New Taipei":174,"Taichung":223,"Kaohsiung":294,"Tainan":210,"Hsinchu":298}},{"year":2023,"topic":"DevOps","attendees":610,"satisfaction":"3.68","newMembers":227,"cityBreakdown":{"Taipei":139,"New Taipei":106,"Taichung":110,"Kaohsiung":134,"Tainan":121}},{"year":2023,"topic":"Mobile Development","attendees":455,"satisfaction":"3.58","newMembers":149,"cityBreakdown":{"Taipei":95,"Taichung":106,"Kaohsiung":81,"Tainan":68,"Hsinchu":105}},{"year":2023,"topic":"Blockchain","attendees":512,"satisfaction":"3.60","newMembers":182,"cityBreakdown":{"New Taipei":119,"Taichung":56,"Kaohsiung":103,"Tainan":124,"Hsinchu":110}},{"year":2024,"topic":"Web Development","attendees":879,"satisfaction":"4.05","newMembers":199,"cityBreakdown":{"Taipei":181,"New Taipei":184,"Taichung":150,"Kaohsiung":121,"Tainan":54,"Hsinchu":189}},{"year":2024,"topic":"Data Science","attendees":868,"satisfaction":"4.00","newMembers":181,"cityBreakdown":{"Taipei":234,"New Taipei":142,"Taichung":198,"Kaohsiung":158,"Hsinchu":136}},{"year":2024,"topic":"AI/ML","attendees":564,"satisfaction":"4.63","newMembers":89,"cityBreakdown":{"Taipei":162,"New Taipei":217,"Taichung":79,"Hsinchu":106}},{"year":2024,"topic":"DevOps","attendees":501,"satisfaction":"4.17","newMembers":79,"cityBreakdown":{"Taipei":50,"New Taipei":95,"Taichung":66,"Kaohsiung":92,"Tainan":120,"Hsinchu":78}},{"year":2024,"topic":"Mobile Development","attendees":400,"satisfaction":"4.53","newMembers":32,"cityBreakdown":{"New Taipei":64,"Taichung":144,"Kaohsiung":109,"Tainan":83}},{"year":2024,"topic":"Blockchain","attendees":541,"satisfaction":"4.10","newMembers":185,"cityBreakdown":{"Taipei":161,"New Taipei":92,"Taichung":133,"Kaohsiung":54,"Tainan":101}}];const data = [{"year":2019,"topic":"Web Development","attendees":646,"satisfaction":"4.22","newMembers":182,"cityBreakdown":{"Taipei":122,"New Taipei":157,"Kaohsiung":198,"Tainan":169}},{"year":2019,"topic":"Data Science","attendees":793,"satisfaction":"3.82","newMembers":147,"cityBreakdown":{"Taipei":74,"New Taipei":146,"Taichung":145,"Kaohsiung":71,"Tainan":158,"Hsinchu":199}},{"year":2019,"topic":"AI/ML","attendees":549,"satisfaction":"3.86","newMembers":112,"cityBreakdown":{"Taipei":77,"New Taipei":131,"Taichung":165,"Kaohsiung":71,"Hsinchu":105}},{"year":2019,"topic":"DevOps","attendees":169,"satisfaction":"4.10","newMembers":57,"cityBreakdown":{"Taichung":76,"Hsinchu":93}},{"year":2019,"topic":"Mobile Development","attendees":764,"satisfaction":"4.20","newMembers":182,"cityBreakdown":{"Taipei":104,"New Taipei":78,"Taichung":75,"Kaohsiung":128,"Tainan":194,"Hsinchu":185}},{"year":2019,"topic":"Blockchain","attendees":420,"satisfaction":"4.15","newMembers":82,"cityBreakdown":{"Taipei":93,"Taichung":78,"Kaohsiung":148,"Hsinchu":101}},{"year":2020,"topic":"Web Development","attendees":92,"satisfaction":"4.10","newMembers":52,"cityBreakdown":{"Taipei":16,"New Taipei":23,"Tainan":36,"Hsinchu":17}},{"year":2020,"topic":"Data Science","attendees":220,"satisfaction":"3.44","newMembers":156,"cityBreakdown":{"Taipei":38,"New Taipei":51,"Taichung":42,"Kaohsiung":47,"Tainan":42}},{"year":2020,"topic":"AI/ML","attendees":182,"satisfaction":"4.03","newMembers":155,"cityBreakdown":{"Taipei":18,"New Taipei":19,"Taichung":31,"Kaohsiung":43,"Tainan":16,"Hsinchu":55}},{"year":2020,"topic":"DevOps","attendees":241,"satisfaction":"4.33","newMembers":203,"cityBreakdown":{"Taipei":55,"New Taipei":26,"Taichung":47,"Kaohsiung":30,"Tainan":29,"Hsinchu":54}},{"year":2020,"topic":"Mobile Development","attendees":146,"satisfaction":"3.68","newMembers":102,"cityBreakdown":{"Taipei":26,"New Taipei":18,"Taichung":44,"Tainan":22,"Hsinchu":36}},{"year":2020,"topic":"Blockchain","attendees":180,"satisfaction":"4.40","newMembers":150,"cityBreakdown":{"Taipei":18,"New Taipei":26,"Taichung":35,"Kaohsiung":58,"Tainan":43}},{"year":2021,"topic":"Web Development","attendees":304,"satisfaction":"4.28","newMembers":168,"cityBreakdown":{"Taipei":65,"New Taipei":45,"Kaohsiung":104,"Hsinchu":90}},{"year":2021,"topic":"Data Science","attendees":201,"satisfaction":"4.03","newMembers":117,"cityBreakdown":{"Taipei":38,"Kaohsiung":54,"Hsinchu":109}},{"year":2021,"topic":"AI/ML","attendees":372,"satisfaction":"4.02","newMembers":132,"cityBreakdown":{"New Taipei":54,"Taichung":34,"Kaohsiung":99,"Tainan":101,"Hsinchu":84}},{"year":2021,"topic":"DevOps","attendees":437,"satisfaction":"4.05","newMembers":241,"cityBreakdown":{"Taipei":69,"New Taipei":90,"Taichung":52,"Kaohsiung":70,"Tainan":45,"Hsinchu":111}},{"year":2021,"topic":"Mobile Development","attendees":394,"satisfaction":"3.78","newMembers":119,"cityBreakdown":{"Taipei":105,"New Taipei":54,"Kaohsiung":81,"Tainan":94,"Hsinchu":60}},{"year":2021,"topic":"Blockchain","attendees":355,"satisfaction":"3.84","newMembers":163,"cityBreakdown":{"New Taipei":60,"Taichung":92,"Kaohsiung":82,"Tainan":69,"Hsinchu":52}},{"year":2022,"topic":"Web Development","attendees":342,"satisfaction":"4.07","newMembers":128,"cityBreakdown":{"Taipei":151,"Taichung":121,"Kaohsiung":70}},{"year":2022,"topic":"Data Science","attendees":696,"satisfaction":"3.80","newMembers":144,"cityBreakdown":{"Taipei":196,"New Taipei":162,"Kaohsiung":139,"Tainan":134,"Hsinchu":65}},{"year":2022,"topic":"AI/ML","attendees":927,"satisfaction":"4.17","newMembers":104,"cityBreakdown":{"Taipei":186,"New Taipei":205,"Taichung":187,"Kaohsiung":153,"Tainan":114,"Hsinchu":82}},{"year":2022,"topic":"DevOps","attendees":844,"satisfaction":"4.28","newMembers":327,"cityBreakdown":{"Taipei":87,"New Taipei":113,"Taichung":188,"Kaohsiung":120,"Tainan":188,"Hsinchu":148}},{"year":2022,"topic":"Mobile Development","attendees":755,"satisfaction":"4.18","newMembers":169,"cityBreakdown":{"Taipei":50,"Taichung":168,"Kaohsiung":164,"Tainan":190,"Hsinchu":183}},{"year":2022,"topic":"Blockchain","attendees":734,"satisfaction":"4.15","newMembers":228,"cityBreakdown":{"New Taipei":236,"Taichung":83,"Kaohsiung":183,"Tainan":232}},{"year":2023,"topic":"Web Development","attendees":918,"satisfaction":"4.15","newMembers":255,"cityBreakdown":{"Taipei":196,"New Taipei":159,"Taichung":181,"Kaohsiung":105,"Tainan":189,"Hsinchu":88}},{"year":2023,"topic":"Data Science","attendees":999,"satisfaction":"4.28","newMembers":252,"cityBreakdown":{"Taipei":202,"New Taipei":235,"Taichung":104,"Kaohsiung":186,"Tainan":132,"Hsinchu":140}},{"year":2023,"topic":"AI/ML","attendees":1287,"satisfaction":"4.27","newMembers":179,"cityBreakdown":{"Taipei":88,"New Taipei":174,"Taichung":223,"Kaohsiung":294,"Tainan":210,"Hsinchu":298}},{"year":2023,"topic":"DevOps","attendees":610,"satisfaction":"3.68","newMembers":227,"cityBreakdown":{"Taipei":139,"New Taipei":106,"Taichung":110,"Kaohsiung":134,"Tainan":121}},{"year":2023,"topic":"Mobile Development","attendees":455,"satisfaction":"3.58","newMembers":149,"cityBreakdown":{"Taipei":95,"Taichung":106,"Kaohsiung":81,"Tainan":68,"Hsinchu":105}},{"year":2023,"topic":"Blockchain","attendees":512,"satisfaction":"3.60","newMembers":182,"cityBreakdown":{"New Taipei":119,"Taichung":56,"Kaohsiung":103,"Tainan":124,"Hsinchu":110}},{"year":2024,"topic":"Web Development","attendees":879,"satisfaction":"4.05","newMembers":199,"cityBreakdown":{"Taipei":181,"New Taipei":184,"Taichung":150,"Kaohsiung":121,"Tainan":54,"Hsinchu":189}},{"year":2024,"topic":"Data Science","attendees":868,"satisfaction":"4.00","newMembers":181,"cityBreakdown":{"Taipei":234,"New Taipei":142,"Taichung":198,"Kaohsiung":158,"Hsinchu":136}},{"year":2024,"topic":"AI/ML","attendees":564,"satisfaction":"4.63","newMembers":89,"cityBreakdown":{"Taipei":162,"New Taipei":217,"Taichung":79,"Hsinchu":106}},{"year":2024,"topic":"DevOps","attendees":501,"satisfaction":"4.17","newMembers":79,"cityBreakdown":{"Taipei":50,"New Taipei":95,"Taichung":66,"Kaohsiung":92,"Tainan":120,"Hsinchu":78}},{"year":2024,"topic":"Mobile Development","attendees":400,"satisfaction":"4.53","newMembers":32,"cityBreakdown":{"New Taipei":64,"Taichung":144,"Kaohsiung":109,"Tainan":83}},{"year":2024,"topic":"Blockchain","attendees":541,"satisfaction":"4.10","newMembers":185,"cityBreakdown":{"Taipei":161,"New Taipei":92,"Taichung":133,"Kaohsiung":54,"Tainan":101}}];
+        const data = [{"year":2019,"topic":"Web Development","attendees":646,"satisfaction":"4.22","newMembers":182,"cityBreakdown":{"Taipei":122,"New Taipei":157,"Kaohsiung":198,"Tainan":169}},{"year":2019,"topic":"Data Science","attendees":793,"satisfaction":"3.82","newMembers":147,"cityBreakdown":{"Taipei":74,"New Taipei":146,"Taichung":145,"Kaohsiung":71,"Tainan":158,"Hsinchu":199}},{"year":2019,"topic":"AI/ML","attendees":549,"satisfaction":"3.86","newMembers":112,"cityBreakdown":{"Taipei":77,"New Taipei":131,"Taichung":165,"Kaohsiung":71,"Hsinchu":105}},{"year":2019,"topic":"DevOps","attendees":169,"satisfaction":"4.10","newMembers":57,"cityBreakdown":{"Taichung":76,"Hsinchu":93}},{"year":2019,"topic":"Mobile Development","attendees":764,"satisfaction":"4.20","newMembers":182,"cityBreakdown":{"Taipei":104,"New Taipei":78,"Taichung":75,"Kaohsiung":128,"Tainan":194,"Hsinchu":185}},{"year":2019,"topic":"Blockchain","attendees":420,"satisfaction":"4.15","newMembers":82,"cityBreakdown":{"Taipei":93,"Taichung":78,"Kaohsiung":148,"Hsinchu":101}},{"year":2020,"topic":"Web Development","attendees":92,"satisfaction":"4.10","newMembers":52,"cityBreakdown":{"Taipei":16,"New Taipei":23,"Tainan":36,"Hsinchu":17}},{"year":2020,"topic":"Data Science","attendees":220,"satisfaction":"3.44","newMembers":156,"cityBreakdown":{"Taipei":38,"New Taipei":51,"Taichung":42,"Kaohsiung":47,"Tainan":42}},{"year":2020,"topic":"AI/ML","attendees":182,"satisfaction":"4.03","newMembers":155,"cityBreakdown":{"Taipei":18,"New Taipei":19,"Taichung":31,"Kaohsiung":43,"Tainan":16,"Hsinchu":55}},{"year":2020,"topic":"DevOps","attendees":241,"satisfaction":"4.33","newMembers":203,"cityBreakdown":{"Taipei":55,"New Taipei":26,"Taichung":47,"Kaohsiung":30,"Tainan":29,"Hsinchu":54}},{"year":2020,"topic":"Mobile Development","attendees":146,"satisfaction":"3.68","newMembers":102,"cityBreakdown":{"Taipei":26,"New Taipei":18,"Taichung":44,"Tainan":22,"Hsinchu":36}},{"year":2020,"topic":"Blockchain","attendees":180,"satisfaction":"4.40","newMembers":150,"cityBreakdown":{"Taipei":18,"New Taipei":26,"Taichung":35,"Kaohsiung":58,"Tainan":43}},{"year":2021,"topic":"Web Development","attendees":304,"satisfaction":"4.28","newMembers":168,"cityBreakdown":{"Taipei":65,"New Taipei":45,"Kaohsiung":104,"Hsinchu":90}},{"year":2021,"topic":"Data Science","attendees":201,"satisfaction":"4.03","newMembers":117,"cityBreakdown":{"Taipei":38,"Kaohsiung":54,"Hsinchu":109}},{"year":2021,"topic":"AI/ML","attendees":372,"satisfaction":"4.02","newMembers":132,"cityBreakdown":{"New Taipei":54,"Taichung":34,"Kaohsiung":99,"Tainan":101,"Hsinchu":84}},{"year":2021,"topic":"DevOps","attendees":437,"satisfaction":"4.05","newMembers":241,"cityBreakdown":{"Taipei":69,"New Taipei":90,"Taichung":52,"Kaohsiung":70,"Tainan":45,"Hsinchu":111}},{"year":2021,"topic":"Mobile Development","attendees":394,"satisfaction":"3.78","newMembers":119,"cityBreakdown":{"Taipei":105,"New Taipei":54,"Kaohsiung":81,"Tainan":94,"Hsinchu":60}},{"year":2021,"topic":"Blockchain","attendees":355,"satisfaction":"3.84","newMembers":163,"cityBreakdown":{"New Taipei":60,"Taichung":92,"Kaohsiung":82,"Tainan":69,"Hsinchu":52}},{"year":2022,"topic":"Web Development","attendees":342,"satisfaction":"4.07","newMembers":128,"cityBreakdown":{"Taipei":151,"Taichung":121,"Kaohsiung":70}},{"year":2022,"topic":"Data Science","attendees":696,"satisfaction":"3.80","newMembers":144,"cityBreakdown":{"Taipei":196,"New Taipei":162,"Kaohsiung":139,"Tainan":134,"Hsinchu":65}},{"year":2022,"topic":"AI/ML","attendees":927,"satisfaction":"4.17","newMembers":104,"cityBreakdown":{"Taipei":186,"New Taipei":205,"Taichung":187,"Kaohsiung":153,"Tainan":114,"Hsinchu":82}},{"year":2022,"topic":"DevOps","attendees":844,"satisfaction":"4.28","newMembers":327,"cityBreakdown":{"Taipei":87,"New Taipei":113,"Taichung":188,"Kaohsiung":120,"Tainan":188,"Hsinchu":148}},{"year":2022,"topic":"Mobile Development","attendees":755,"satisfaction":"4.18","newMembers":169,"cityBreakdown":{"Taipei":50,"Taichung":168,"Kaohsiung":164,"Tainan":190,"Hsinchu":183}},{"year":2022,"topic":"Blockchain","attendees":734,"satisfaction":"4.15","newMembers":228,"cityBreakdown":{"New Taipei":236,"Taichung":83,"Kaohsiung":183,"Tainan":232}},{"year":2023,"topic":"Web Development","attendees":918,"satisfaction":"4.15","newMembers":255,"cityBreakdown":{"Taipei":196,"New Taipei":159,"Taichung":181,"Kaohsiung":105,"Tainan":189,"Hsinchu":88}},{"year":2023,"topic":"Data Science","attendees":999,"satisfaction":"4.28","newMembers":252,"cityBreakdown":{"Taipei":202,"New Taipei":235,"Taichung":104,"Kaohsiung":186,"Tainan":132,"Hsinchu":140}},{"year":2023,"topic":"AI/ML","attendees":1287,"satisfaction":"4.27","newMembers":179,"cityBreakdown":{"Taipei":88,"New Taipei":174,"Taichung":223,"Kaohsiung":294,"Tainan":210,"Hsinchu":298}},{"year":2023,"topic":"DevOps","attendees":610,"satisfaction":"3.68","newMembers":227,"cityBreakdown":{"Taipei":139,"New Taipei":106,"Taichung":110,"Kaohsiung":134,"Tainan":121}},{"year":2023,"topic":"Mobile Development","attendees":455,"satisfaction":"3.58","newMembers":149,"cityBreakdown":{"Taipei":95,"Taichung":106,"Kaohsiung":81,"Tainan":68,"Hsinchu":105}},{"year":2023,"topic":"Blockchain","attendees":512,"satisfaction":"3.60","newMembers":182,"cityBreakdown":{"New Taipei":119,"Taichung":56,"Kaohsiung":103,"Tainan":124,"Hsinchu":110}},{"year":2024,"topic":"Web Development","attendees":879,"satisfaction":"4.05","newMembers":199,"cityBreakdown":{"Taipei":181,"New Taipei":184,"Taichung":150,"Kaohsiung":121,"Tainan":54,"Hsinchu":189}},{"year":2024,"topic":"Data Science","attendees":868,"satisfaction":"4.00","newMembers":181,"cityBreakdown":{"Taipei":234,"New Taipei":142,"Taichung":198,"Kaohsiung":158,"Hsinchu":136}},{"year":2024,"topic":"AI/ML","attendees":564,"satisfaction":"4.63","newMembers":89,"cityBreakdown":{"Taipei":162,"New Taipei":217,"Taichung":79,"Hsinchu":106}},{"year":2024,"topic":"DevOps","attendees":501,"satisfaction":"4.17","newMembers":79,"cityBreakdown":{"Taipei":50,"New Taipei":95,"Taichung":66,"Kaohsiung":92,"Tainan":120,"Hsinchu":78}},{"year":2024,"topic":"Mobile Development","attendees":400,"satisfaction":"4.53","newMembers":32,"cityBreakdown":{"New Taipei":64,"Taichung":144,"Kaohsiung":109,"Tainan":83}},{"year":2024,"topic":"Blockchain","attendees":541,"satisfaction":"4.10","newMembers":185,"cityBreakdown":{"Taipei":161,"New Taipei":92,"Taichung":133,"Kaohsiung":54,"Tainan":101}}];
         
         // Data processing functions
-        function processData(yearFilter, topicFilter) {topicFilter) {
-            let filteredData = [...data];let filteredData = [...data];
+        function processData(yearFilter, topicFilter) {
+            let filteredData = [...data];
             
             if (yearFilter !== 'all') {
-                filteredData = filteredData.filter(d => d.year === parseInt(yearFilter));   filteredData = filteredData.filter(d => d.year === parseInt(yearFilter));
-            }}
+                filteredData = filteredData.filter(d => d.year === parseInt(yearFilter));
+            }
             
             if (topicFilter !== 'all') {
-                filteredData = filteredData.filter(d => d.topic === topicFilter);   filteredData = filteredData.filter(d => d.topic === topicFilter);
-            }}
+                filteredData = filteredData.filter(d => d.topic === topicFilter);
+            }
             
-            return filteredData;   return filteredData;
-        }}
+            return filteredData;
+        }
         
         // Color scale for topics
         const colorScale = d3.scaleOrdinal()
-            .domain(['Web Development', 'Data Science', 'AI/ML', 'DevOps', 'Mobile Development', 'Blockchain'])lopment', 'Blockchain'])
-            .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);.range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);
+            .domain(['Web Development', 'Data Science', 'AI/ML', 'DevOps', 'Mobile Development', 'Blockchain'])
+            .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);
             
         // Create tooltip
-        const tooltip = d3.select("body").append("div")dy").append("div")
-            .attr("class", "tooltip")ip")
-            .style("opacity", 0);.style("opacity", 0);
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
             
         // Render legend
         function renderLegend() {
-            const legendContainer = d3.select("#legend");3.select("#legend");
-            legendContainer.html("");legendContainer.html("");
+            const legendContainer = d3.select("#legend");
+            legendContainer.html("");
             
-            const topics = ['Web Development', 'Data Science', 'AI/ML', 'DevOps', 'Mobile Development', 'Blockchain'];const topics = ['Web Development', 'Data Science', 'AI/ML', 'DevOps', 'Mobile Development', 'Blockchain'];
+            const topics = ['Web Development', 'Data Science', 'AI/ML', 'DevOps', 'Mobile Development', 'Blockchain'];
             
             topics.forEach(topic => {
-                const legendItem = legendContainer.append("div").append("div")
-                    .attr("class", "legend-item");.attr("class", "legend-item");
+                const legendItem = legendContainer.append("div")
+                    .attr("class", "legend-item");
                     
                 legendItem.append("div")
                     .attr("class", "legend-color")
-                    .style("background-color", colorScale(topic));.style("background-color", colorScale(topic));
+                    .style("background-color", colorScale(topic));
                     
-                legendItem.append("span")("span")
-                    .text(topic);     .text(topic);
-            });   });
-        }}
+                legendItem.append("span")
+                    .text(topic);
+            });
+        }
         
         // Render bubble chart
-        function renderBubbleChart(filteredData, metricType) {filteredData, metricType) {
+        function renderBubbleChart(filteredData, metricType) {
             // Clear previous chart
-            d3.select("#chart").html("");d3.select("#chart").html("");
+            d3.select("#chart").html("");
             
             const margin = {top: 40, right: 30, bottom: 60, left: 60};
-            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;lientWidth - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;const height = 500 - margin.top - margin.bottom;
+            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;
+            const height = 500 - margin.top - margin.bottom;
             
-            const svg = d3.select("#chart")ect("#chart")
+            const svg = d3.select("#chart")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)t", height + margin.top + margin.bottom)
+                .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", `translate(${margin.left},${margin.top})`);.attr("transform", `translate(${margin.left},${margin.top})`);
+                .attr("transform", `translate(${margin.left},${margin.top})`);
                 
             // Add title
             svg.append("text")
-                .attr("x", width / 2)h / 2)
+                .attr("x", width / 2)
                 .attr("y", -20)
-                .attr("text-anchor", "middle")e")
+                .attr("text-anchor", "middle")
                 .style("font-size", "16px")
                 .style("font-weight", "bold")
-                .text(`Tech Meetup ${metricType === 'attendees' ? 'Attendance' : metricType === 'satisfaction' ? 'Satisfaction Ratings' : 'New Member Recruitment'}`);.text(`Tech Meetup ${metricType === 'attendees' ? 'Attendance' : metricType === 'satisfaction' ? 'Satisfaction Ratings' : 'New Member Recruitment'}`);
+                .text(`Tech Meetup ${metricType === 'attendees' ? 'Attendance' : metricType === 'satisfaction' ? 'Satisfaction Ratings' : 'New Member Recruitment'}`);
                 
             // Create scales
-            const xScale = d3.scaleLinear()()
-                .domain([2018.5, 2024.5])24.5])
-                .range([0, width]);.range([0, width]);
+            const xScale = d3.scaleLinear()
+                .domain([2018.5, 2024.5])
+                .range([0, width]);
                 
             const yScale = d3.scaleLinear()
-                .domain([0, d3.max(filteredData, d => metricType === 'satisfaction' ? parseFloat(d[metricType]) : d[metricType]) * 1.1])([0, d3.max(filteredData, d => metricType === 'satisfaction' ? parseFloat(d[metricType]) : d[metricType]) * 1.1])
+                .domain([0, d3.max(filteredData, d => metricType === 'satisfaction' ? parseFloat(d[metricType]) : d[metricType]) * 1.1])
                 .nice()
-                .range([height, 0]);.range([height, 0]);
+                .range([height, 0]);
                 
             const radiusScale = d3.scaleSqrt()
-                .domain([0, d3.max(filteredData, d => d.attendees)])ax(filteredData, d => d.attendees)])
-                .range([5, 30]);.range([5, 30]);
+                .domain([0, d3.max(filteredData, d => d.attendees)])
+                .range([5, 30]);
                 
             // Add X axis
             svg.append("g")
                 .attr("transform", `translate(0,${height})`)
-                .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))m(xScale).tickFormat(d3.format("d")))
+                .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
                 .selectAll("text")
-                .style("text-anchor", "middle");.style("text-anchor", "middle");
+                .style("text-anchor", "middle");
                 
-            // Add X axis labell
+            // Add X axis label
             svg.append("text")
-                .attr("class", "axis-label")label")
+                .attr("class", "axis-label")
                 .attr("x", width / 2)
                 .attr("y", height + 40)
-                .style("text-anchor", "middle")nchor", "middle")
-                .text("Year");.text("Year");
+                .style("text-anchor", "middle")
+                .text("Year");
                 
             // Add Y axis
             svg.append("g")
-                .call(d3.axisLeft(yScale));.call(d3.axisLeft(yScale));
+                .call(d3.axisLeft(yScale));
                 
-            // Add Y axis labell
+            // Add Y axis label
             svg.append("text")
-                .attr("class", "axis-label")bel")
-                .attr("x", -height / 2)ght / 2)
+                .attr("class", "axis-label")
+                .attr("x", -height / 2)
                 .attr("y", -50)
-                .attr("transform", "rotate(-90)")")
+                .attr("transform", "rotate(-90)")
                 .style("text-anchor", "middle")
-                .text(metricType === 'attendees' ? 'Number of Attendees' : metricType === 'satisfaction' ? 'Satisfaction Rating' : 'New Members');.text(metricType === 'attendees' ? 'Number of Attendees' : metricType === 'satisfaction' ? 'Satisfaction Rating' : 'New Members');
+                .text(metricType === 'attendees' ? 'Number of Attendees' : metricType === 'satisfaction' ? 'Satisfaction Rating' : 'New Members');
                 
             // Add bubbles
             svg.selectAll("circle")
-                .data(filteredData)lteredData)
+                .data(filteredData)
                 .enter()
                 .append("circle")
                 .attr("cx", d => xScale(d.year))
-                .attr("cy", d => yScale(metricType === 'satisfaction' ? parseFloat(d[metricType]) : d[metricType]))atisfaction' ? parseFloat(d[metricType]) : d[metricType]))
-                .attr("r", d => radiusScale(d.attendees))))
-                .attr("fill", d => colorScale(d.topic))lorScale(d.topic))
+                .attr("cy", d => yScale(metricType === 'satisfaction' ? parseFloat(d[metricType]) : d[metricType]))
+                .attr("r", d => radiusScale(d.attendees))
+                .attr("fill", d => colorScale(d.topic))
                 .attr("opacity", 0.7)
-                .on("mouseover", (event, d) => { d) => {
-                    tooltip.transition()()
+                .on("mouseover", (event, d) => {
+                    tooltip.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    tooltip.html(`Year: ${d.year}<br>Topic: ${d.topic}<br>${metricType === 'attendees' ? 'Attendees' : metricType === 'satisfaction' ? 'Satisfaction' : 'New Members'}: ${d[metricType]}`)topic}<br>${metricType === 'attendees' ? 'Attendees' : metricType === 'satisfaction' ? 'Satisfaction' : 'New Members'}: ${d[metricType]}`)
+                    tooltip.html(`Year: ${d.year}<br>Topic: ${d.topic}<br>${metricType === 'attendees' ? 'Attendees' : metricType === 'satisfaction' ? 'Satisfaction' : 'New Members'}: ${d[metricType]}`)
                         .style("left", (event.pageX + 5) + "px")
-                        .style("top", (event.pageY - 28) + "px");      .style("top", (event.pageY - 28) + "px");
+                        .style("top", (event.pageY - 28) + "px");
                 })
                 .on("mouseout", () => {
-                    tooltip.transition()()
+                    tooltip.transition()
                         .duration(500)
-                        .style("opacity", 0);     .style("opacity", 0);
-                });       });
-        }        }
+                        .style("opacity", 0);
+                });
+        }
 
         // Render stream graph
-        function renderStreamGraph(data) {data) {
+        function renderStreamGraph(data) {
             // Clear previous chart
-            d3.select("#chart").html("");d3.select("#chart").html("");
+            d3.select("#chart").html("");
             
             const margin = {top: 40, right: 30, bottom: 60, left: 60};
-            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;lientWidth - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;const height = 500 - margin.top - margin.bottom;
+            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;
+            const height = 500 - margin.top - margin.bottom;
             
-            const svg = d3.select("#chart")ect("#chart")
+            const svg = d3.select("#chart")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)t", height + margin.top + margin.bottom)
+                .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", `translate(${margin.left},${margin.top})`);                .attr("transform", `translate(${margin.left},${margin.top})`);
+                .attr("transform", `translate(${margin.left},${margin.top})`);
 
             // 數據處理
             const stack = d3.stack()
-                .keys(["講座", "展覽", "表演", "其他"]))
-                .offset(d3.stackOffsetWiggle);                .offset(d3.stackOffsetWiggle);
+                .keys(["講座", "展覽", "表演", "其他"])
+                .offset(d3.stackOffsetWiggle);
 
             // 創建時間比例尺
             const xScale = d3.scaleTime()
-                .domain(d3.extent(data, d => d.date))ata, d => d.date))
-                .range([0, width]);                .range([0, width]);
+                .domain(d3.extent(data, d => d.date))
+                .range([0, width]);
 
             // 創建y比例尺
             const yScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d.total)])ata, d => d.total)])
-                .range([height, 0]);                .range([height, 0]);
+                .domain([0, d3.max(data, d => d.total)])
+                .range([height, 0]);
 
             // 創建面積生成器
             const area = d3.area()
-                .x(d => xScale(d.data.date))date))
+                .x(d => xScale(d.data.date))
                 .y0(d => yScale(d[0]))
                 .y1(d => yScale(d[1]))
-                .curve(d3.curveBasis);                .curve(d3.curveBasis);
+                .curve(d3.curveBasis);
 
             // 繪製stream layers
             svg.selectAll("path")
-                .data(stack(data))ack(data))
+                .data(stack(data))
                 .enter()
                 .append("path")
                 .attr("d", area)
-                .attr("fill", (d, i) => colorScale(i));                .attr("fill", (d, i) => colorScale(i));
+                .attr("fill", (d, i) => colorScale(i));
 
             // 添加座標軸
             svg.append("g")
-                .attr("transform", `translate(0,${height})`)(0,${height})`)
-                .call(d3.axisBottom(xScale));                .call(d3.axisBottom(xScale));
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(xScale));
 
             svg.append("g")
-                .call(d3.axisLeft(yScale));       .call(d3.axisLeft(yScale));
-        }        }
+                .call(d3.axisLeft(yScale));
+        }
 
         // Render radar chart
-        function renderRadarChart(data) {ata) {
+        function renderRadarChart(data) {
             // Clear previous chart
-            d3.select("#chart").html("");d3.select("#chart").html("");
+            d3.select("#chart").html("");
             
-            const margin = {top: 50, right: 50, bottom: 50, left: 50};: 50};
-            const width = Math.min(700, window.innerWidth - 10);n(700, window.innerWidth - 10);
+            const margin = {top: 50, right: 50, bottom: 50, left: 50};
+            const width = Math.min(700, window.innerWidth - 10);
             const height = width;
-            const radius = Math.min(width, height) / 2;            const radius = Math.min(width, height) / 2;
+            const radius = Math.min(width, height) / 2;
 
-            const svg = d3.select("#chart")ect("#chart")
+            const svg = d3.select("#chart")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)t", height + margin.top + margin.bottom)
+                .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", `translate(${(width/2)+margin.left},${(height/2)+margin.top})`);                .attr("transform", `translate(${(width/2)+margin.left},${(height/2)+margin.top})`);
+                .attr("transform", `translate(${(width/2)+margin.left},${(height/2)+margin.top})`);
 
             // 雷達圖配置
-            const categories = ["講座", "展覽", "表演", "其他"];", "其他"];
+            const categories = ["講座", "展覽", "表演", "其他"];
             const angleScale = d3.scaleLinear()
-                .domain([0, categories.length])ngth])
-                .range([0, 2 * Math.PI]);                .range([0, 2 * Math.PI]);
+                .domain([0, categories.length])
+                .range([0, 2 * Math.PI]);
 
             const valueScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d.total)])ata, d => d.total)])
-                .range([0, radius]);                .range([0, radius]);
+                .domain([0, d3.max(data, d => d.total)])
+                .range([0, radius]);
 
             // 繪製雷達圖網格
             const levels = 5;
-            const gridCircles = svg.selectAll(".gridCircle")".gridCircle")
-                .data(d3.range(1, levels + 1)).range(1, levels + 1))
+            const gridCircles = svg.selectAll(".gridCircle")
+                .data(d3.range(1, levels + 1))
                 .enter()
                 .append("circle")
                 .attr("class", "gridCircle")
-                .attr("r", d => radius * d / levels) * d / levels)
+                .attr("r", d => radius * d / levels)
                 .style("fill", "none")
                 .style("stroke", "#999")
-                .style("stroke-dasharray", "4,4");                .style("stroke-dasharray", "4,4");
+                .style("stroke-dasharray", "4,4");
 
             // 繪製軸線
-            const axes = svg.selectAll(".axis")ctAll(".axis")
-                .data(categories)tegories)
+            const axes = svg.selectAll(".axis")
+                .data(categories)
                 .enter()
                 .append("line")
-                .attr("class", "axis") "axis")
+                .attr("class", "axis")
                 .attr("x1", 0)
                 .attr("y1", 0)
                 .attr("x2", (d, i) => radius * Math.cos(angleScale(i) - Math.PI/2))
-                .attr("y2", (d, i) => radius * Math.sin(angleScale(i) - Math.PI/2))ius * Math.sin(angleScale(i) - Math.PI/2))
-                .style("stroke", "#999");       .style("stroke", "#999");
-        }        }
+                .attr("y2", (d, i) => radius * Math.sin(angleScale(i) - Math.PI/2))
+                .style("stroke", "#999");
+        }
 
         // Render stack chart
-        function renderStackChart(data) {ata) {
+        function renderStackChart(data) {
             // Clear previous chart
-            d3.select("#chart").html("");d3.select("#chart").html("");
+            d3.select("#chart").html("");
             
             const margin = {top: 40, right: 30, bottom: 60, left: 60};
-            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;lientWidth - margin.left - margin.right;
-            const height = 500 - margin.top - margin.bottom;const height = 500 - margin.top - margin.bottom;
+            const width = document.getElementById("chart").clientWidth - margin.left - margin.right;
+            const height = 500 - margin.top - margin.bottom;
             
-            const svg = d3.select("#chart")ect("#chart")
+            const svg = d3.select("#chart")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)t", height + margin.top + margin.bottom)
+                .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", `translate(${margin.left},${margin.top})`);                .attr("transform", `translate(${margin.left},${margin.top})`);
+                .attr("transform", `translate(${margin.left},${margin.top})`);
 
             // 堆疊數據處理
             const stack = d3.stack()
-                .keys(["講座", "展覽", "表演", "其他"]);                .keys(["講座", "展覽", "表演", "其他"]);
+                .keys(["講座", "展覽", "表演", "其他"]);
 
             const xScale = d3.scaleBand()
-                .domain(data.map(d => d.date)) => d.date))
-                .range([0, width])th])
-                .padding(0.1);                .padding(0.1);
+                .domain(data.map(d => d.date))
+                .range([0, width])
+                .padding(0.1);
 
             const yScale = d3.scaleLinear()
-                .domain([0, d3.max(data, d => d.total)])ata, d => d.total)])
-                .range([height, 0]);                .range([height, 0]);
+                .domain([0, d3.max(data, d => d.total)])
+                .range([height, 0]);
 
             // 繪製堆疊條形
             svg.selectAll("g")
-                .data(stack(data))ack(data))
+                .data(stack(data))
                 .enter()
                 .append("g")
-                .attr("fill", (d, i) => colorScale(i))i) => colorScale(i))
-                .selectAll("rect")ect")
-                .data(d => d)=> d)
+                .attr("fill", (d, i) => colorScale(i))
+                .selectAll("rect")
+                .data(d => d)
                 .enter()
                 .append("rect")
-                .attr("x", d => xScale(d.data.date)).date))
+                .attr("x", d => xScale(d.data.date))
                 .attr("y", d => yScale(d[1]))
-                .attr("height", d => yScale(d[0]) - yScale(d[1])) yScale(d[1]))
-                .attr("width", xScale.bandwidth());                .attr("width", xScale.bandwidth());
+                .attr("height", d => yScale(d[0]) - yScale(d[1]))
+                .attr("width", xScale.bandwidth());
 
             // 添加座標軸
             svg.append("g")
-                .attr("transform", `translate(0,${height})`)(0,${height})`)
-                .call(d3.axisBottom(xScale));                .call(d3.axisBottom(xScale));
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(xScale));
 
             svg.append("g")
-                .call(d3.axisLeft(yScale));       .call(d3.axisLeft(yScale));
+                .call(d3.axisLeft(yScale));
         }
-    </script>cript>
+    </script>
 </body>
-
-</html></html>
+</html>
